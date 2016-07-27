@@ -1,0 +1,43 @@
+{
+  "name": "t3rookies/ligatures",
+  "type": "typo3-cms-extension",
+  "description": "Replaces ligatures in frontend to give better visual experience of a website",
+  "license": ["GPL-2.0+"],
+  "version": "1.0.0",
+  "minimum-stability": "dev",
+  "require": {
+    "typo3/cms": ">=7.6.0,<8.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.7.0"
+  },
+  "authors": [
+    {
+      "name": "Irena",
+      "role": "Developer"
+    },
+    {
+      "name": "Willy",
+      "role": "Developer"
+    },
+    {
+      "name": "Niels",
+      "role": "Developer"
+    },
+    {
+      "name": "Boban",
+      "role": "Developer"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "T3ROOKIES\\Ligatures\\": "Classes",
+      "TYPO3\\CMS\\Core\\Tests\\": ".Build/vendor/typo3/cms/typo3/sysext/core/Tests/"
+    }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.0.x-dev"
+    }
+  }
+}
