@@ -63,10 +63,14 @@ class LigaturesUtilityTest extends UnitTestCase {
 				'input' => 'String with both ffi and fi-character ligature',
 				'expected' => 'String with both &#64259; and &#64257;-character ligature'
 			],
-			/*'String with html-tag strong with ligatures' => [
+			'String with html-tag strong with ligatures' => [
 				'input' => '<strong>This is a simple text</strong>',
-				'output' => '<strong>This is a simple text</strong>'
-			]*/
+				'expected' => '<strong>This is a simple text</strong>'
+			],
+			'String with nested html-tags that has ligatures' => [
+				'input' => "<p style='font-size: 10px'>This is a simple <strong>text</strong></p>",
+				'expected' => "<p style='font-size: 10px'>This is a simple <strong>text</strong></p>"
+			]
 		];
 	}
 	
