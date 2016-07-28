@@ -43,7 +43,8 @@
   "scripts": {
     "post-autoload-dump": [
       "mkdir -p .Build/Web/typo3conf/ext/",
-      "[ -L .Build/Web/typo3conf/ext/ligatures ] || ln -snvf ../../../../. .Build/Web/typo3conf/ext/ligatures"
+      "[ -L .Build/Web/typo3conf/ext/ligatures ] || ln -snvf ../../../../. .Build/Web/typo3conf/ext/ligatures",
+      "export TYPO3_PATH_WEB=$PWD/.Build/Web"
     ]
   },
   "extra": {
