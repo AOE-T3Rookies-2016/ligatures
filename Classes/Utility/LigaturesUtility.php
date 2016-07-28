@@ -14,8 +14,16 @@ class LigaturesUtility {
 	 * @return string
 	 */
 	public function getCharacter($originalString) {
-		$newString = '';
 		
+		$ligaturesArray = $this->getLigaturesArray();
+		foreach($ligaturesArray as $origin => $ligature) {
+			$originalString = str_replace($origin, $ligature, $originalString);
+		}
+		
+		return $originalString;
+	}
+	
+	public function legacy() {
 		$strlen = strlen($originalString);
 		for( $i = 0; $i <= $strlen; $i++ ) {
 			// TODO: Make sure that substr don't run out of arrays
@@ -43,18 +51,18 @@ class LigaturesUtility {
 			
 		}
 		
-		return $newString;
 	}
+	
 	
 	/**
 	 * @return array
 	 */
 	private function getTwoCharsLigaturesArray() {
 		return [
-			'st' => 'U+FB06',
-			'ff' => 'U+FB00',
-			'fi' => 'U+FB01',
-			'fl' => 'U+FB02'
+			'st' => '&#64262;',
+			'ff' => '&#64256;',
+			'fi' => '&#64257;',
+			'fl' => '&#64258;'
 		];
 	}
 	
@@ -63,9 +71,20 @@ class LigaturesUtility {
 	 */
 	private function getThreeCharsLigaturesArray() {
 		return [
-			'ffl' => 'U+FB04',
-			'ffi' => 'U+FB03'
+			'ffl' => '&#64260;',
+			'ffi' => '&#64259;'
 		];
+	}
+	
+	/**
+	 * @return array
+	 */
+	private function getLigaturesArray() {
+		$ligaturesArray = array_merge(
+			$this->getThreeCharsLigaturesArray(),
+			$this->getTwoCharsLigaturesArray()
+		);
+		return $ligaturesArray;
 	}
 	
 }
