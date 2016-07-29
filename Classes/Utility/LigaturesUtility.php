@@ -17,42 +17,11 @@ class LigaturesUtility {
 		
 		$ligaturesArray = $this->getLigaturesArray();
 		foreach($ligaturesArray as $origin => $ligature) {
-			$originalString = str_replace($origin, $ligature, $originalString);
+			$originalString = preg_replace('|' . $origin . '|', $ligature, $originalString);
 		}
 		
 		return $originalString;
 	}
-	
-	public function legacy() {
-		$strlen = strlen($originalString);
-		for( $i = 0; $i <= $strlen; $i++ ) {
-			// TODO: Make sure that substr don't run out of arrays
-			if ($i+2 <= count($strlen)) {
-				if ($i+1 <= count($strlen)) {
-					
-				} else {
-					$newString .= substr($originalString, $i, 1);
-				}
-			}
-			
-			$firstCharacter = substr($originalString, $i, 1 );
-			$secondCharacter = substr($originalString, $i+1, 1);
-			$thirdCharacter = substr($originalString, $i+2, 1);
-			$twoLetterString = $firstCharacter . $secondCharacter;
-			$threeLetterString = $twoLetterString . $thirdCharacter;
-			
-			if (in_array($twoLetterString, $this->getTwoCharsLigaturesArray())) {
-				if (in_array($threeLetterString, $this->getThreeCharsLigaturesArray())) {
-					$newString .= ''; // replace characters
-				} else {
-					$newString .= ''; // replace characters
-				}
-			}
-			
-		}
-		
-	}
-	
 	
 	/**
 	 * @return array
@@ -79,10 +48,31 @@ class LigaturesUtility {
 	/**
 	 * @return array
 	 */
+	private function getAllHtmlTagsWithLigature() {
+		// TODO: How to deal with <span style=“”> and <span name=“test” style=“”>?
+		return [
+			'<&#64262;rong>' => '<strong>',
+			'</&#64262;rong>' => '</strong>',
+			'<&#64262;yle' => '<style>',
+			'</&#64262;yle' => '</style>',
+			'<&#64258;eldset' => '<fieldset>',
+			'</&#64258;eldset' => '</fieldset>',
+			'<&#64258;gcaption' => '<figcaption>',
+			'</&#64258;gcaption' => '</figcaption>',
+			'<&#64258;gure' => '<figure>',
+			'</&#64258;' => '</figure>',
+			'<p &#64262;yle' => '<p style',
+		];
+	}
+	
+	/**
+	 * @return array
+	 */
 	private function getLigaturesArray() {
 		$ligaturesArray = array_merge(
 			$this->getThreeCharsLigaturesArray(),
-			$this->getTwoCharsLigaturesArray()
+			$this->getTwoCharsLigaturesArray(),
+			$this->getAllHtmlTagsWithLigature()
 		);
 		return $ligaturesArray;
 	}
